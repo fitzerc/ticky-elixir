@@ -3,3 +3,26 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+.round-image-padding {
+    border-radius: 50%;
+    border: 1.5px solid black;
+    padding: 4px;
+}
+
+.dropdown-menu-arrow::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: calc(95% - 12px);
+    border-width: 0 5px 5px 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+
+.menu-item {
+    @apply block px-4 py-2 text-sm
+}
+
+.menu-item:hover {
+    @apply hover:text-darkgray
+}
