@@ -21,7 +21,7 @@
     <div
       id="dropdown_menu"
       phx-click-away={TickyWeb.Layouts.App.toggle_dropdown_menu()}
-      class="dropdown-menu-arrow absolute right-0 mt-2 py-2 w-48 rounded-lg shaddow-xl border border-black"
+      class="dropdown-menu-arrow bg-white absolute right-0 mt-2 py-2 w-48 rounded-lg shaddow-xl border border-black"
       hidden="true"
     >
       <%= if @current_user do %>
@@ -90,6 +90,7 @@
     <div class="flex items-center space-x-2 py-5">
       <img src="/images/stopwatch.svg" class="h-8 w-8" />
       <p>Ticky</p>
+      <div></div>
     </div>
   </div>
 </footer>

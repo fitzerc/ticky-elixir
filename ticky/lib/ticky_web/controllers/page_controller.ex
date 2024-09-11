@@ -2,8 +2,10 @@ defmodule TickyWeb.PageController do
   use TickyWeb, :controller
 
   def home(conn, _params) do
-    # The home page is often custom made,
-    # so skip the default app layout.
-    render(conn, :home)
+    if conn.assigns[:current_user] do
+      redirect(conn, to: "/home")
+    else
+      render(conn, "home.html")
+    end
   end
 end
