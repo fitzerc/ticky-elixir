@@ -1,3 +1,45 @@
 <div class="flex items-center justify-center">
   <h1>Home Page</h1>
 </div>
+
+<div class="w-1/2 mx-auto pt-8">
+  <div class="flex justify-between w-100">
+    <h2>Timers</h2>
+    
+    <.button phx-click="nav_to_page">Add Timer</.button>
+  </div>
+  
+  <div class="container mx-auto">
+    <table class="min-w-full bg-white">
+      <thead>
+        <tr>
+          <th class="py-2 px-4 border-b text-left">Project</th>
+          
+          <th class="py-2 px-4 border-b text-left">Task</th>
+          
+          <th class="py-2 px-4 border-b text-left">Tag</th>
+          
+          <th class="py-2 px-4 border-b text-left">Inserted At</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <%= for record <- @timers do %>
+          <tr>
+            <td class="py-2 px-4 border-b"><%= record.project %></td>
+            
+            <td class="py-2 px-4 border-b"><%= record.task %></td>
+            
+            <td class="py-2 px-4 border-b"><%= record.tag %></td>
+            
+            <td class="py-2 px-4 border-b"><%= record.inserted_at %></td>
+            
+            <td class="py-2 px-4 border-b">
+              <.button>Stop</.button>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -2,22 +2,22 @@
   <h1>Start a New Timer</h1>
 </div>
 
-<.form for={@form}>
+<.form for={@form} phx-submit="start" phx-change="validate">
   <div class="space-y-4 mb-10">
     <div class="mx-auto w-1/2">
-      <.input field={@form[:project]} placeholder="Project" autocomplete="off" />
-      <.input field={@form[:task]} placeholder="Task" autocomplete="off" />
-      <.input field={@form[:tag]} placeholder="Tag" autocomplete="off" />
+      <.input
+        field={@form[:project]}
+        placeholder="Project"
+        autocomplete="off"
+        phx-debounce="blur"
+      /> <.input field={@form[:task]} placeholder="Task" autocomplete="off" phx-debounce="blur" />
+      <.input field={@form[:tag]} placeholder="Tag" autocomplete="off" phx-debounce="blur" />
     </div>
   </div>
   
   <div class="mx-auto w-1/2">
     <div class="flex justify-end space-x-2">
-      <.button class="text-black bg-slate-200 border-2 border-black hover:bg-slate-400">
-        Clear
-      </.button>
-      
-      <.button>Start</.button>
+      <.button phx-disable-with="Starting...">Start</.button>
     </div>
   </div>
 </.form>

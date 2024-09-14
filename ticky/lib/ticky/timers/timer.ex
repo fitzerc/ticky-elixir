@@ -15,6 +15,6 @@ defmodule Ticky.Timers.Timer do
   def changeset(timer, attrs) do
     timer
     |> cast(attrs, [:project, :task, :tag, :user_id])
-    |> validate_required([:project, :task, :tag, :user_id])
+    |> validate_required([:project, :task, :user_id])
   end
 end

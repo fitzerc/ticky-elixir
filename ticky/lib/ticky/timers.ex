@@ -21,6 +21,11 @@ defmodule Ticky.Timers do
     Repo.all(Timer)
   end
 
+  def list_users_timers(user_id) do
+    from(t in Timer, where: t.user_id == ^user_id, select: t)
+    |> Repo.all()
+  end
+
   @doc """
   Gets a single timer.
 
