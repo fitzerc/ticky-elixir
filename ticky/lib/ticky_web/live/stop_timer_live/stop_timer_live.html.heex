@@ -1,0 +1,22 @@
+<div class="flex justify-center items-center">
+  <h1>Stop Timer</h1>
+</div>
+
+<.form for={@form} phx-submit="stop">
+  <div class="space-y-4 mb-10">
+    <div class="mx-auto w-1/2">
+      <.input field={@form[:project]} placeholder="Project" />
+      <.input field={@form[:task]} placeholder="Task" />
+      <.input field={@form[:tag]} placeholder="Tag" />
+      <.input field={@form[:started_at]} placeholde="Started At" />
+      <.input field={@form[:ended_at]} placeholde="Ended At" />
+      <.input field={@form[:elapsed]} />
+    </div>
+
+    <div class="mx-auto w-1/2">
+      <div class="flex justify-end space-x-2">
+        <.button phx-disable-with="Saving...">Stop</.button>
+      </div>
+    </div>
+  </div>
+</.form>

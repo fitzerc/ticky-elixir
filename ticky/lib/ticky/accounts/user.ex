@@ -9,6 +9,7 @@ defmodule Ticky.Accounts.User do
     field :current_password, :string, virtual: true, redact: true
     field :confirmed_at, :utc_datetime
     has_many :timers, Ticky.Timers.Timer
+    has_many :time_entries, Ticky.TimeEntries.TimeEntry
 
     timestamps(type: :utc_datetime)
   end

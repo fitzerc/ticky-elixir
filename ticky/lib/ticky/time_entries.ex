@@ -21,6 +21,11 @@ defmodule Ticky.TimeEntries do
     Repo.all(TimeEntry)
   end
 
+  def list_users_time_entries(user_id) do
+    from(te in TimeEntry, where: te.user_id == ^user_id, select: te)
+    |> Repo.all()
+  end
+
   @doc """
   Gets a single time_entry.
 

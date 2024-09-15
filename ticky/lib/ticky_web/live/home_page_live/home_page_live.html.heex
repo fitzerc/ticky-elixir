@@ -35,8 +35,49 @@
             <td class="py-2 px-4 border-b"><%= record.inserted_at %></td>
             
             <td class="py-2 px-4 border-b">
-              <.button>Stop</.button>
+              <.button phx-click="stop_timer" phx-value-id={record.id}>Stop</.button>
             </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="w-1/2 mx-auto pt-12">
+  <div class="flex justify-between w-100">
+    <h2>Time Entries</h2>
+    
+    <!--
+    <.button phx-click="nav_to_page">Add Timer</.button>
+    -->
+  </div>
+  
+  <div class="container mx-auto">
+    <table class="min-w-full bg-white">
+      <thead>
+        <tr>
+          <th class="py-2 px-4 border-b text-left">Project</th>
+          
+          <th class="py-2 px-4 border-b text-left">Task</th>
+          
+          <th class="py-2 px-4 border-b text-left">Tag</th>
+          
+          <th class="py-2 px-4 border-b text-left">Elapsed</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <%= for record <- @time_entries do %>
+          <tr>
+            <td class="py-2 px-4 border-b"><%= record.project %></td>
+            
+            <td class="py-2 px-4 border-b"><%= record.task %></td>
+            
+            <td class="py-2 px-4 border-b"><%= record.tag %></td>
+            
+            <td class="py-2 px-4 border-b"><%= record.elapsed %></td>
+            
           </tr>
         <% end %>
       </tbody>

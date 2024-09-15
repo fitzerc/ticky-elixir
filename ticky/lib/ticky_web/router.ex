@@ -4,6 +4,7 @@ defmodule TickyWeb.Router do
   import TickyWeb.UserAuth
   import TickyWeb.HomePageLive
   import TickyWeb.StartTimerLive
+  import TickyWeb.StopTimerLive
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -72,6 +73,7 @@ defmodule TickyWeb.Router do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
       live "/start_timer", StartTimerLive
+      live "/stop_timer", StopTimerLive
     end
   end
 
