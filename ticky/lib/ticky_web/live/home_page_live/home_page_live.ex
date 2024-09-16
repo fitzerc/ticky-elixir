@@ -20,4 +20,12 @@ defmodule TickyWeb.HomePageLive do
   def handle_event("stop_timer", %{"id" => id}, socket) do
     {:noreply, push_navigate(socket, to: ~p"/stop_timer?#{[id: id]}")}
   end
+
+  def handle_event("show_today", _value, socket) do
+    date = Date.utc_today()
+    datetime = DateTime.new!(date, ~T[00:00:00])
+    todays_entries = TimeEntries.get_time_entries_for_day(socket.assigns.current_user.id, datetime)
+    socket = assign(socket, time_entries: todays_entries)
+    {:noreply, socket}
+  end
 end

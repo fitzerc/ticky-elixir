@@ -26,6 +26,11 @@ defmodule Ticky.TimeEntries do
     |> Repo.all()
   end
 
+  def get_time_entries_for_day(user_id, date) do
+    from(te in TimeEntry, where: te.user_id == ^user_id and te.started_at >= ^date)
+    |> Repo.all()
+  end
+
   @doc """
   Gets a single time_entry.
 
