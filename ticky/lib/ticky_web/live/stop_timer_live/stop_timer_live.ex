@@ -4,16 +4,21 @@ defmodule TickyWeb.StopTimerLive do
   alias Ticky.{Timers, Timers.Timer, TimeEntries, TimeEntries.TimeEntry}
 
   def mount(%{"id" => id}, _session, socket) do
+    timezone = get_connect_params(socket)["timezone"] || "UTC"
+    socket = assign(socket, timezone: timezone)
+
     timer = Timers.get_timer!(id)
     socket = assign(socket, timer: timer)
 
-    time_entry = map_timer_to_time_entry(timer)
+    timezone = socket.assigns.timezone
+    local_datetime = Timex.now(timezone)
+
+    time_entry = map_timer_to_time_entry(timer, local_datetime)
 
     {:ok, assign(socket, form: to_form(TimeEntries.change_time_entry(time_entry)))}
   end
 
-  def map_timer_to_time_entry(timer) do
-    current_datetime = DateTime.utc_now()
+  def map_timer_to_time_entry(timer, current_datetime) do
     elapsed_seconds = DateTime.diff(current_datetime, timer.inserted_at, :second)
 
     {hours, minutes, seconds} = calculate_time_components(elapsed_seconds)
@@ -26,7 +31,7 @@ defmodule TickyWeb.StopTimerLive do
       task: timer.task,
       tag: timer.tag,
       user_id: timer.user_id,
-      started_at: timer.inserted_at,
+      started_at: timer.started_at,
       ended_at: current_datetime,
       elapsed: elapsed_string
     }

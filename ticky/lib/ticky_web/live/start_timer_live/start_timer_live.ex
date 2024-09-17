@@ -4,6 +4,9 @@ defmodule TickyWeb.StartTimerLive do
   alias Ticky.{Timers, Timers.Timer}
 
   def mount(_params, _session, socket) do
+    timezone = get_connect_params(socket)["timezone"] || "UTC"
+    socket = assign(socket, timezone: timezone)
+
     socket =
       assign(
         socket,
@@ -14,7 +17,12 @@ defmodule TickyWeb.StartTimerLive do
   end
 
   def handle_event("start", %{"timer" => params}, socket) do
-    case Timers.create_timer(socket.assigns.current_user, params) do
+    timezone = socket.assigns.timezone
+    local_datetime = Timex.now(timezone)
+
+    timer = Map.put(params, "started_at", local_datetime)
+
+    case Timers.create_timer(socket.assigns.current_user, timer) do
       {:ok, _timer} ->
         changeset = Timers.change_timer(%Timer{})
         {:noreply, assign(socket, :form, to_form(changeset))}

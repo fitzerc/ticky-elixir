@@ -6,6 +6,7 @@ defmodule Ticky.Repo.Migrations.CreateTimers do
       add :project, :string
       add :task, :string
       add :tag, :string
+      add :started_at, :naive_datetime
       add :user_id, references(:users, on_delete: :delete_all)
 
       timestamps(type: :utc_datetime)

@@ -19,7 +19,7 @@
           
           <th class="py-2 px-4 border-b text-left">Tag</th>
           
-          <th class="py-2 px-4 border-b text-left">Inserted At</th>
+          <th class="py-2 px-4 border-b text-left">Started At</th>
         </tr>
       </thead>
       
@@ -32,7 +32,7 @@
             
             <td class="py-2 px-4 border-b"><%= record.tag %></td>
             
-            <td class="py-2 px-4 border-b"><%= record.inserted_at %></td>
+            <td class="py-2 px-4 border-b"><%= record.started_at %></td>
             
             <td class="py-2 px-4 border-b">
               <.button phx-click="stop_timer" phx-value-id={record.id}>Stop</.button>
