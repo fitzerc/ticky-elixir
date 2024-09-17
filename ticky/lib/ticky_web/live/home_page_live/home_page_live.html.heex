@@ -46,9 +46,13 @@
 
 <div class="w-1/2 mx-auto pt-12">
   <div class="flex justify-between w-100">
-    <h2>Time Entries</h2>
+    <h2>Time Entries (<%= @filter %>)</h2>
     
-    <.button phx-click="show_today">Show Today</.button>
+    <%= if @filter == "all" do %>
+      <.button phx-click="show_today">Show Today</.button>
+    <% else %>
+      <.button phx-click="show_all">Show All</.button>
+    <% end %>
   </div>
   
   <div class="container mx-auto">
