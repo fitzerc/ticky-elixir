@@ -74,6 +74,8 @@ defmodule TickyWeb.Router do
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
       live "/start_timer", StartTimerLive
       live "/stop_timer", StopTimerLive
+      live "/archive_entries", ArchiveEntriesLive
+      live "/archives", ArchivesLive
     end
   end
 

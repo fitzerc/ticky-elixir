@@ -48,11 +48,15 @@
   <div class="flex justify-between w-100">
     <h2>Time Entries (<%= @filter %>)</h2>
     
-    <%= if @filter == "all" do %>
-      <.button phx-click="show_today">Show Today</.button>
-    <% else %>
-      <.button phx-click="show_all">Show All</.button>
-    <% end %>
+    <div class="justify-end">
+      <.button phx-click="archive_entries">Archive Entries</.button>
+      
+      <%= if @filter == "all" do %>
+        <.button phx-click="show_today">Show Today</.button>
+      <% else %>
+        <.button phx-click="show_all">Show All</.button>
+      <% end %>
+    </div>
   </div>
   
   <div class="container mx-auto">
@@ -79,7 +83,6 @@
             <td class="py-2 px-4 border-b"><%= record.tag %></td>
             
             <td class="py-2 px-4 border-b"><%= record.elapsed %></td>
-            
           </tr>
         <% end %>
       </tbody>

@@ -1,7 +1,7 @@
 defmodule TickyWeb.HomePageLive do
   use TickyWeb, :live_view
 
-  alias Ticky.{ Timers, TimeEntries }
+  alias Ticky.{Timers, TimeEntries}
 
   def mount(_params, _session, socket) do
     timezone = get_connect_params(socket)["timezone"] || "UTC"
@@ -40,7 +40,7 @@ defmodule TickyWeb.HomePageLive do
     date = Timex.now(timezone)
     datetime = Timex.set(date, hour: 0, minute: 0, second: 0)
 
-    TimeEntries.get_time_entries_for_day(socket.assigns.current_user.id, datetime)
+    TimeEntries.list_unarchived_time_entries_after_day(socket.assigns.current_user.id, datetime)
   end
 
   def handle_event("show_all", _value, socket) do
@@ -50,5 +50,9 @@ defmodule TickyWeb.HomePageLive do
     socket = assign(socket, filter: "all")
 
     {:noreply, socket}
+  end
+
+  def handle_event("archive_entries", _value, socket) do
+    {:noreply, push_navigate(socket, to: ~p"/archive_entries")}
   end
 end

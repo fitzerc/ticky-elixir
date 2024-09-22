@@ -1,0 +1,56 @@
+<div class="flex justify-center items-center">
+  <h1>Archive Time Entries</h1>
+</div>
+
+<div class="w-1/2 mx-auto">
+  <.form for={@archive_form} phx-submit="archive">
+    <div class="flex space-x-3">
+      <.input field={@archive_form[:name]} placeholder="Archive Name" autocomplete="off" />
+      <.button>Archive Entries</.button>
+    </div>
+  </.form>
+</div>
+
+<div class="w-1/2 mx-auto m-4 p-2 border">
+  <div class="flex justify-center pt-2">
+    Time Entries to be Archived
+  </div>
+  
+  <.form for={@form} phx-submit="filter" phx-change="validate" phx-debounce="blur">
+    <div class="flex justify-end pt-3">
+      <.input type="date" field={@form[:from_date]} placeholder="From" autocomplete="off" />
+      <.input type="date" field={@form[:to_date]} placeholder="From" autocomplete="off" />
+      <.button phx-disable-with="Filtering...">Filter</.button>
+    </div>
+  </.form>
+  
+  <div class="w-1/2 mx-auto pt-4">
+    <table class="min-w-full bg-white">
+      <thead>
+        <tr>
+          <th class="py-2 px-4 border-b text-left">Project</th>
+          
+          <th class="py-2 px-4 border-b text-left">Task</th>
+          
+          <th class="py-2 px-4 border-b text-left">Tag</th>
+          
+          <th class="py-2 px-4 border-b text-left">Elapsed</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <%= for record <- @time_entries do %>
+          <tr>
+            <td class="py-2 px-4 border-b"><%= record.project %></td>
+            
+            <td class="py-2 px-4 border-b"><%= record.task %></td>
+            
+            <td class="py-2 px-4 border-b"><%= record.tag %></td>
+            
+            <td class="py-2 px-4 border-b"><%= record.elapsed %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

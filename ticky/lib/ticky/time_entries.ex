@@ -7,6 +7,7 @@ defmodule Ticky.TimeEntries do
   alias Ticky.Repo
 
   alias Ticky.TimeEntries.TimeEntry
+  alias Ticky.ArchivedEntries.ArchivedEntry
 
   @doc """
   Returns the list of time_entries.
@@ -26,9 +27,51 @@ defmodule Ticky.TimeEntries do
     |> Repo.all()
   end
 
+  def list_users_unarchived_time_entries(user_id) do
+    query =
+      from te in TimeEntry,
+        left_join: ae in ArchivedEntry,
+        on: te.id == ae.time_entry_id,
+        where: te.user_id == ^user_id and is_nil(ae.time_entry_id),
+        select: te
+
+    Repo.all(query)
+  end
+
+  def list_time_entries_between_for_user(from_date, to_date, user_id) do
+    from(te in TimeEntry,
+      where: te.user_id == ^user_id and te.started_at >= ^from_date and te.started_at <= ^to_date
+    )
+    |> Repo.all()
+  end
+
+  def list_unarchived_time_entries_between_for_user(from_date, to_date, user_id) do
+    query =
+      from te in TimeEntry,
+        left_join: ae in ArchivedEntry,
+        on: te.id == ae.time_entry_id,
+        where:
+          te.user_id == ^user_id and te.started_at >= ^from_date and te.started_at <= ^to_date and
+            is_nil(ae.time_entry_id),
+        select: te
+
+    Repo.all(query)
+  end
+
   def get_time_entries_for_day(user_id, date) do
     from(te in TimeEntry, where: te.user_id == ^user_id and te.started_at >= ^date)
     |> Repo.all()
+  end
+
+  def list_unarchived_time_entries_after_day(user_id, date) do
+    query =
+      from te in TimeEntry,
+        left_join: ae in ArchivedEntry,
+        on: te.id == ae.time_entry_id,
+        where: te.user_id == ^user_id and te.started_at >= ^date and is_nil(ae.time_entry_id),
+        select: te
+
+    Repo.all(query)
   end
 
   @doc """

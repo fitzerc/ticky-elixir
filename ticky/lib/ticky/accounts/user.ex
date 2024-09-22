@@ -10,6 +10,7 @@ defmodule Ticky.Accounts.User do
     field :confirmed_at, :utc_datetime
     has_many :timers, Ticky.Timers.Timer
     has_many :time_entries, Ticky.TimeEntries.TimeEntry
+    has_many :time_entry_archives, Ticky.TimeEntryArchives.TimeEntryArchive
 
     timestamps(type: :utc_datetime)
   end

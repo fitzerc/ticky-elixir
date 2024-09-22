@@ -21,6 +21,11 @@ defmodule Ticky.TimeEntryArchives do
     Repo.all(TimeEntryArchive)
   end
 
+  def list_users_time_entry_archives(user_id) do
+    from(tea in TimeEntryArchive, where: tea.user_id == ^user_id, select: tea)
+    |> Repo.all()
+  end
+
   @doc """
   Gets a single time_entry_archive.
 
@@ -49,8 +54,9 @@ defmodule Ticky.TimeEntryArchives do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_time_entry_archive(attrs \\ %{}) do
-    %TimeEntryArchive{}
+  def create_time_entry_archive(user, attrs \\ %{}) do
+    user
+    |> Ecto.build_assoc(:time_entry_archives)
     |> TimeEntryArchive.changeset(attrs)
     |> Repo.insert()
   end

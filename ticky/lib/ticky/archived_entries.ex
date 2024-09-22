@@ -55,6 +55,24 @@ defmodule Ticky.ArchivedEntries do
     |> Repo.insert()
   end
 
+  def insert_time_entries(time_entry_archive_id, time_entry_ids) do
+    Enum.each(time_entry_ids, fn time_entry_id ->
+      entry = %{
+        time_entry_archive_id: time_entry_archive_id,
+        time_entry_id: time_entry_id
+      }
+
+      _ =
+        case(create_archived_entry(entry)) do
+          {:ok, _t} ->
+            nil
+            # Do nothing
+            :error
+            nil
+        end
+    end)
+  end
+
   @doc """
   Updates a archived_entry.
 
