@@ -11,13 +11,19 @@
         </tr>
       </thead>
       
+      <div id="download-csv" phx-hook="DownloadCSV"></div>
+      
       <tbody>
         <%= for a <- @archived_entries do %>
           <tr>
             <td class="py-2 px-4 border-b"><%= a.name %></td>
             
             <td class="py-2 px-4 border-b flex justify-end">
-              <.button phx-click="download_archive" phx-value-archive_id={a.id}>
+              <.button
+                phx-click="download_csv"
+                phx-value-archive_id={a.id}
+                phx-value-archive_name={a.name}
+              >
                 Download
               </.button>
             </td>

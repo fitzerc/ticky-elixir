@@ -74,6 +74,17 @@ defmodule Ticky.TimeEntries do
     Repo.all(query)
   end
 
+  def list_time_entries_by_archive(archive_id) do
+    query =
+      from te in TimeEntry,
+        join: ae in ArchivedEntry,
+        on: te.id == ae.time_entry_id,
+        where: ae.time_entry_archive_id == ^archive_id,
+        select: te
+
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single time_entry.
 
